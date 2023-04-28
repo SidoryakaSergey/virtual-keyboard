@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-// eslint-disable-next-line linebreak-style
 const keyboardKeysArr = [
   [
     {
@@ -491,7 +489,7 @@ function createKeyboard(lang) {
   body.append(wrapper);
   keyboardKeys.className = 'keyboard__keys';
 
-  for (let i = 0; i < keyboardKeysArr.length; i++) {
+  for (let i = 0; i < keyboardKeysArr.length; i + 1) {
     const rowKeys = document.createElement('div');
     rowKeys.className = 'row-keys';
     keyboardKeysArr[i].forEach((el) => {
@@ -556,4 +554,6 @@ function setLangKeyboard(langKeyboard) {
   localStorage.setItem('langKeyboard', langKeyboard);
 }
 
-export { keyboardKeysArr, createKeyboard, getLangKeyboard, setLangKeyboard };
+export {
+  keyboardKeysArr, createKeyboard, getLangKeyboard, setLangKeyboard,
+};
