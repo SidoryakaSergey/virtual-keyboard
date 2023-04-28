@@ -471,6 +471,7 @@ function createKeyboard(lang) {
   const helpInfo = document.createElement('div');
   const keyboardKeys = document.createElement('keyboard__keys');
 
+  body.innerHTML = '';
   keyboardDisplay.name = 'text';
   keyboardDisplay.id = 'keyboard__display';
   keyboardDisplay.cols = 50;
@@ -542,4 +543,17 @@ function createKeyboard(lang) {
   wrapperKeyboard.append(helpInfo);
 }
 
-export { keyboardKeysArr, createKeyboard };
+function getLangKeyboard() {
+  let langKeyboard = localStorage.getItem('langKeyboard');
+  if (!langKeyboard) {
+    langKeyboard = 'ru';
+    localStorage.setItem('langKeyboard', langKeyboard);
+  }
+  return langKeyboard;
+}
+
+function setLangKeyboard(langKeyboard) {
+  localStorage.setItem('langKeyboard', langKeyboard);
+}
+
+export { keyboardKeysArr, createKeyboard, getLangKeyboard, setLangKeyboard };
