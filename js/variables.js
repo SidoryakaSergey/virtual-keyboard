@@ -507,6 +507,7 @@ function createKeyboard(lang) {
   keyboardDisplay.id = 'keyboard__display';
   keyboardDisplay.cols = 50;
   keyboardDisplay.rows = 5;
+  keyboardDisplay.setAttribute('autofocus', '');
 
   helpInfo.className = 'help-info';
   wrapper.className = 'wrapper';
