@@ -44,6 +44,8 @@ h1 {
   border: 2px inset #fff;
   white-space: pre-wrap;
   box-shadow: inset 2px 2px 5px #0002, inset -2px -2px 5px #fff;
+  outline: none; 
+  box-shadow: none;
 }
 
 .keyboard__keys {
@@ -62,6 +64,7 @@ h1 {
 }
 
 .key {
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;

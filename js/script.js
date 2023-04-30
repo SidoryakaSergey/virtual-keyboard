@@ -24,7 +24,6 @@ const otherFuncKey = [
   'ArrowRight',
 ];
 let shift = '';
-let cursorPosition = 0;
 
 const keyboardKeys = keyboardKeysArr.reduce((acc, row) => {
   row.forEach((keyObj) => {
@@ -55,21 +54,15 @@ function pressCapsLock() {
 createKeyboard(lang);
 
 const keyboardDisplay = document.querySelector('#keyboard__display');
-
-keyboardDisplay.addEventListener('click', () => {
-  cursorPosition = keyboardDisplay.selectionStart;
-  console.log('cursorPosition: ', cursorPosition);
-});
+const allKey = document.querySelectorAll('.key');
 
 function addLetter(letter) {
   const cursorPos = keyboardDisplay.selectionStart;
   const textBeforeCursor = keyboardDisplay.value.substring(0, cursorPos);
   const textAfterCursor = keyboardDisplay.value.substring(cursorPos, letter.lenth);
-
   keyboardDisplay.value = textBeforeCursor + letter + textAfterCursor;
   keyboardDisplay.selectionStart = cursorPos + 1;
   keyboardDisplay.selectionEnd = keyboardDisplay.selectionStart;
-  // cursorPosition += 1;
 }
 
 function backspaceLetter() {
@@ -92,11 +85,53 @@ function deleteLetter() {
   keyboardDisplay.selectionEnd = keyboardDisplay.selectionStart;
 }
 
+allKey.forEach((key) => {
+  key.addEventListener('click', (e) => {
+    const { target } = e;
+    const { code } = target.dataset;
+
+    const isLetter = target.classList.contains('key');
+    const isFunctional = target.classList.contains('functional');
+    if (isLetter && !isFunctional && code !== 'Space') {
+      addLetter(target.innerText);
+    }
+    if (code === 'Space') {
+      addLetter(' ');
+    }
+    if (code === 'Tab') {
+      addLetter(' ');
+      addLetter(' ');
+      addLetter(' ');
+      addLetter(' ');
+    }
+    if (code === 'Enter') {
+      addLetter('\n');
+    }
+    if (code === 'ArrowUp') {
+      addLetter('↑');
+    }
+    if (code === 'ArrowDown') {
+      addLetter('↓');
+    }
+    if (code === 'ArrowRight') {
+      addLetter('→');
+    }
+    if (code === 'ArrowLeft') {
+      addLetter('←');
+    }
+    if (code === 'Backspace') {
+      backspaceLetter();
+    }
+    if (code === 'Delete') {
+      deleteLetter();
+    }
+  });
+});
+
 keyboardDisplay.addEventListener('keydown', (event) => {
   event.preventDefault();
   const { code } = event;
   const key = document.querySelector(`[data-code="${code}"]`);
-  // console.log(key);
   if (key) {
     const isLetter = key.classList.contains('key');
     const isFunctional = key.classList.contains('functional');
@@ -107,6 +142,8 @@ keyboardDisplay.addEventListener('keydown', (event) => {
       addLetter(' ');
     }
     if (code === 'Tab') {
+      addLetter(' ');
+      addLetter(' ');
       addLetter(' ');
       addLetter(' ');
     }
@@ -233,6 +270,7 @@ document.addEventListener('click', (event) => {
       pressCapsLock();
     }
   }
+  keyboardDisplay.focus();
 });
 
 document.addEventListener('mousedown', (event) => {
