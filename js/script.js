@@ -7,7 +7,6 @@ let lang = getLangKeyboard();
 let langChanged = false;
 let pressShift = false;
 let pressCaps = false;
-let pressKey = false;
 let caps = false;
 const otherFuncKey = [
   'Backspace',
@@ -19,12 +18,13 @@ const otherFuncKey = [
   'AltLeft',
   'AltRight',
   'MetaLeft',
-  'ArrpwUp',
-  'ArrpwDown',
-  'ArrpwLeft',
-  'ArrpwRight',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowLeft',
+  'ArrowRight',
 ];
 let shift = '';
+let cursorPosition = 0;
 
 const keyboardKeys = keyboardKeysArr.reduce((acc, row) => {
   row.forEach((keyObj) => {
@@ -55,15 +55,90 @@ function pressCapsLock() {
 createKeyboard(lang);
 
 const keyboardDisplay = document.querySelector('#keyboard__display');
-keyboardDisplay.value = 'Eva';
-console.log(keyboardDisplay);
+
+keyboardDisplay.addEventListener('click', () => {
+  cursorPosition = keyboardDisplay.selectionStart;
+  console.log('cursorPosition: ', cursorPosition);
+});
+
+function addLetter(letter) {
+  const cursorPos = keyboardDisplay.selectionStart;
+  const textBeforeCursor = keyboardDisplay.value.substring(0, cursorPos);
+  const textAfterCursor = keyboardDisplay.value.substring(cursorPos, letter.lenth);
+
+  keyboardDisplay.value = textBeforeCursor + letter + textAfterCursor;
+  keyboardDisplay.selectionStart = cursorPos + 1;
+  keyboardDisplay.selectionEnd = keyboardDisplay.selectionStart;
+  // cursorPosition += 1;
+}
+
+function backspaceLetter() {
+  const cursorPos = keyboardDisplay.selectionStart;
+  if (cursorPos > 0) {
+    const textBeforeCursor = keyboardDisplay.value.substring(0, cursorPos - 1);
+    const textAfterCursor = keyboardDisplay.value.substring(cursorPos);
+    keyboardDisplay.value = textBeforeCursor + textAfterCursor;
+    keyboardDisplay.selectionStart = cursorPos - 1;
+    keyboardDisplay.selectionEnd = keyboardDisplay.selectionStart;
+  }
+}
+
+function deleteLetter() {
+  const cursorPos = keyboardDisplay.selectionStart;
+  const textBeforeCursor = keyboardDisplay.value.substring(0, cursorPos);
+  const textAfterCursor = keyboardDisplay.value.substring(cursorPos + 1);
+  keyboardDisplay.value = textBeforeCursor + textAfterCursor;
+  keyboardDisplay.selectionStart = cursorPos;
+  keyboardDisplay.selectionEnd = keyboardDisplay.selectionStart;
+}
+
+keyboardDisplay.addEventListener('keydown', (event) => {
+  event.preventDefault();
+  const { code } = event;
+  const key = document.querySelector(`[data-code="${code}"]`);
+  // console.log(key);
+  if (key) {
+    const isLetter = key.classList.contains('key');
+    const isFunctional = key.classList.contains('functional');
+    if (isLetter && !isFunctional && code !== 'Space') {
+      addLetter(key.innerText);
+    }
+    if (code === 'Space') {
+      addLetter(' ');
+    }
+    if (code === 'Tab') {
+      addLetter(' ');
+      addLetter(' ');
+    }
+    if (code === 'Enter') {
+      addLetter('\n');
+    }
+    if (code === 'ArrowUp') {
+      addLetter('↑');
+    }
+    if (code === 'ArrowDown') {
+      addLetter('↓');
+    }
+    if (code === 'ArrowRight') {
+      addLetter('→');
+    }
+    if (code === 'ArrowLeft') {
+      addLetter('←');
+    }
+    if (code === 'Backspace') {
+      backspaceLetter();
+    }
+    if (code === 'Delete') {
+      deleteLetter();
+    }
+  }
+});
 
 document.addEventListener('keydown', (event) => {
   const e = event;
   const { code } = e;
   if (event.key === 'Tab') {
     event.preventDefault();
-    // здесь можно добавить свой код обработки
   }
   if (e.ctrlKey && e.altKey && !langChanged) {
     if (code === 'ControlLeft' || code === 'AltLeft') {
@@ -100,7 +175,7 @@ document.addEventListener('keydown', (event) => {
     pressCapsLock();
   }
   const key = document.querySelector(`[data-code="${code}"]`);
-  if (!key.classList.contains('functional')) {
+  if (key && !key.classList.contains('functional')) {
     key.classList.add('key--active');
   }
   if (otherFuncKey.includes(code)) {
@@ -137,7 +212,7 @@ document.addEventListener('keyup', (event) => {
     pressCaps = false;
   }
   const key = document.querySelector(`[data-code="${code}"]`);
-  if (!key.classList.contains('functional')) {
+  if (key && !key.classList.contains('functional')) {
     key.classList.remove('key--active');
   }
   if (otherFuncKey.includes(code)) {
