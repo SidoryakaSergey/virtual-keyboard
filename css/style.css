@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lobster', cursive;
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #ececec;
+  min-height: 100vh;
+}
+
+.wrapper__keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 800px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: -4px -4px 8px #fff, 4px 4px 8px #0002;
+}
+
+h1 {
+  font-size: 30px;
+  color: rgba(101, 134, 177, 0.8);
+}
+
+#keyboard__display {
+  width: 600px;
+  font-size: 16px;
+  font-family: inherit;
+  height: 200px;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+  border: 2px inset #fff;
+  white-space: pre-wrap;
+  box-shadow: inset 2px 2px 5px #0002, inset -2px -2px 5px #fff;
+  outline: none; 
+  box-shadow: none;
+}
+
+.keyboard__keys {
+  padding: 10px;
+  margin-top: 20px;
+  width: 730px;
+  height: 300px;
+  border-radius: 20px;
+  border: 2px solid rgba(101, 134, 177, 0.8);
+}
+
+.row-keys {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.key {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: 3px 3px 6px #0002, -3px -3px 6px #fff;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.3s ease;
+}
+.key:hover {
+  border-color: rgba(0, 204, 255, 0.966);
+  color: rgb(9, 136, 9);
+}
+
+.key:active {
+  box-shadow: inset 3px 3px 6px #0002, inset -3px -3px 6px #fff;
+}
+
+.key--active{
+  border-color: rgba(0, 204, 255, 0.966);
+  color: rgb(9, 136, 9);
+  box-shadow: inset 3px 3px 6px #0002, inset -3px -3px 6px #fff;
+}
+
+.functional {
+  background-color: rgb(180, 179, 175);
+}
+
+.functional:hover {
+  color: rgb(9, 136, 9);
+}
+
+.functional:active {
+  box-shadow: inset 3px 3px 6px rgba(71, 71, 71, 0.133), inset -3px -3px 6px #b6b4b4;
+}
+
+
+.func--active {
+  border-color: rgba(0, 204, 255, 0.966);
+  color: rgb(9, 136, 9);
+  box-shadow: inset 3px 3px 6px rgba(71, 71, 71, 0.133), inset -3px -3px 6px #b6b4b4;
+}
+
+.backspace {
+  width: 105px;
+}
+
+.tab,
+.del {
+  width: 50px;
+}
+
+.capslock,
+.left-shift {
+  width: 90px;
+}
+
+.enter,
+.right-shift {
+  width: 100px;
+}
+
+.arrow,
+.alt {
+  width: 40px;
+}
+
+.ctrl {
+  width: 50px;
+}
+
+.space {
+  width: 310px;
+}

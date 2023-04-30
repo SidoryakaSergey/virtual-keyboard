@@ -1,0 +1,6 @@
+# Исключаем папку с настройками ESLint
+.eslintcache/
+# Исключаем кеш-файлы
+*.cache
+# node
+node_modules
