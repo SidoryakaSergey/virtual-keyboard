@@ -492,6 +492,22 @@ const keyboardKeysArr = [
   ],
 ];
 
+const otherFuncKey = [
+  'Backspace',
+  'Tab',
+  'Delete',
+  'Enter',
+  'ControlLeft',
+  'ControlRight',
+  'AltLeft',
+  'AltRight',
+  'MetaLeft',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowLeft',
+  'ArrowRight',
+];
+
 function createKeyboard(lang) {
   const body = document.querySelector('body');
   const wrapper = document.createElement('div');
@@ -598,6 +614,10 @@ function toggleCase(key) {
 }
 
 export {
-  keyboardKeysArr, createKeyboard, getLangKeyboard, setLangKeyboard,
+  keyboardKeysArr,
+  createKeyboard,
+  getLangKeyboard,
+  setLangKeyboard,
   toggleCase,
+  otherFuncKey,
 };
