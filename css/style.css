@@ -74,8 +74,8 @@ h1 {
   transition: 0.3s ease;
 }
 .key:hover {
-  border-color: rgba(255, 166, 0, 0.966);
-  color: rgba(255, 68, 0, 0.979);
+  border-color: rgba(0, 204, 255, 0.966);
+  color: rgb(9, 136, 9);
 }
 
 .key:active {
@@ -83,8 +83,8 @@ h1 {
 }
 
 .key--active{
-  border-color: rgba(255, 166, 0, 0.966);
-  color: rgba(255, 68, 0, 0.979);
+  border-color: rgba(0, 204, 255, 0.966);
+  color: rgb(9, 136, 9);
   box-shadow: inset 3px 3px 6px #0002, inset -3px -3px 6px #fff;
 }
 
@@ -93,7 +93,7 @@ h1 {
 }
 
 .functional:hover {
-  color: rgba(255, 68, 0, 0.979);
+  color: rgb(9, 136, 9);
 }
 
 .functional:active {
@@ -102,8 +102,8 @@ h1 {
 
 
 .func--active {
-  border-color: rgba(255, 166, 0, 0.966);
-  color: rgba(255, 68, 0, 0.979);
+  border-color: rgba(0, 204, 255, 0.966);
+  color: rgb(9, 136, 9);
   box-shadow: inset 3px 3px 6px rgba(71, 71, 71, 0.133), inset -3px -3px 6px #b6b4b4;
 }
 
