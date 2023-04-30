@@ -1,6 +1,10 @@
 import {
-  keyboardKeysArr, createKeyboard, getLangKeyboard, setLangKeyboard,
+  keyboardKeysArr,
+  createKeyboard,
+  getLangKeyboard,
+  setLangKeyboard,
   toggleCase,
+  otherFuncKey,
 } from './variables.js';
 
 let lang = getLangKeyboard();
@@ -8,21 +12,6 @@ let langChanged = false;
 let pressShift = false;
 let pressCaps = false;
 let caps = false;
-const otherFuncKey = [
-  'Backspace',
-  'Tab',
-  'Delete',
-  'Enter',
-  'ControlLeft',
-  'ControlRight',
-  'AltLeft',
-  'AltRight',
-  'MetaLeft',
-  'ArrowUp',
-  'ArrowDown',
-  'ArrowLeft',
-  'ArrowRight',
-];
 let shift = '';
 
 const keyboardKeys = keyboardKeysArr.reduce((acc, row) => {
@@ -130,7 +119,8 @@ allKey.forEach((key) => {
 
 keyboardDisplay.addEventListener('keydown', (event) => {
   event.preventDefault();
-  const { code } = event;
+  const e = event;
+  const { code } = e;
   const key = document.querySelector(`[data-code="${code}"]`);
   if (key) {
     const isLetter = key.classList.contains('key');
@@ -223,10 +213,11 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   const e = event;
   const { code } = e;
-
-  langChanged = false; // сбрасываем флаг, когда пользователь отпускает клавиши Ctrl и Alt
   const leftCtrl = document.querySelector('[data-code="ControlLeft"]');
   const leftAlt = document.querySelector('[data-code="AltLeft"]');
+  const key = document.querySelector(`[data-code="${code}"]`);
+  langChanged = false;
+
   if (leftAlt.classList.contains('func--active') && leftCtrl.classList.contains('func--active')) {
     leftAlt.classList.remove('func--active');
     leftCtrl.classList.remove('func--active');
@@ -245,19 +236,19 @@ document.addEventListener('keyup', (event) => {
     shift = shift ? '' : 'up_';
     changeKey();
   }
+
   if (code === 'CapsLock') {
     pressCaps = false;
   }
-  const key = document.querySelector(`[data-code="${code}"]`);
+
   if (key && !key.classList.contains('functional')) {
     key.classList.remove('key--active');
   }
+
   if (otherFuncKey.includes(code)) {
     key.classList.remove('func--active');
   }
 });
-
-// const keyButton = document.querySelector(`[data-key="${keyCode}"]`);
 
 document.addEventListener('click', (event) => {
   const { target } = event;
@@ -270,7 +261,6 @@ document.addEventListener('click', (event) => {
       pressCapsLock();
     }
   }
-  keyboardDisplay.focus();
 });
 
 document.addEventListener('mousedown', (event) => {
@@ -293,4 +283,5 @@ document.addEventListener('mouseup', (event) => {
       changeKey();
     }
   }
+  keyboardDisplay.focus();
 });
